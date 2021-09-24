@@ -23,10 +23,9 @@ def estimateProbabilities():
   vocabularySize, vocabulary = vocabularyData()
 
   Kunk = 0  # unknown word umbral value
+  start = time.perf_counter()
 
   for className in classes:
-    start = time.perf_counter()
-
     print(f"Estimating {className} class probabilities...")
     documentsInClassCorpus, wordsInClassCorpus, classCorpusWords = \
       classCorpusData(className)
@@ -60,8 +59,8 @@ def estimateProbabilities():
     exportToFile(className, documentsInClassCorpus, wordsInClassCorpus,
                  classProbabilities)
 
-    end = time.perf_counter()
-    print(f"Time spent in {className} class: {end - start} seconds")
+  end = time.perf_counter()
+  print(f"Time spent estimating probabilities: {end - start} seconds")
 
 
 def exportToFile(className, documentsInClassCorpus, wordsInClassCorpus,

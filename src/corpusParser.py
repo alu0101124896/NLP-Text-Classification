@@ -28,6 +28,20 @@ def splitCorpus(inputFile="../data/ecom-train.csv"):
     exportToFile(classDescriptions, outputFile)
 
 
+def corpusToTestFile(inputFile="../data/ecom-train.csv",
+                     outputFile="../data/corpus-test.csv"):
+  """
+  Function to delete the class column from the corpus file
+  """
+  print("Creating test file...")
+
+  corpusRawData = getRawData(inputFile)
+  descriptions = extractDescriptions(corpusRawData)
+
+  exportToFile(descriptions, outputFile)
+  pass
+
+
 def extractClasses(corpusRawData):
   """
   Function to extract the classes from de rest of the data base
@@ -58,3 +72,4 @@ def exportToFile(descriptions, outputFile):
 
 
 # splitCorpus()
+# corpusToTestFile()

@@ -15,8 +15,9 @@ import time
 
 from vocabularyParser import parseVocabulary
 from classesParser import parseClasses
-from corpusParser import splitCorpus
+from corpusParser import splitCorpus, corpusToTestFile
 from probabilitiesEstimator import estimateProbabilities
+from corpusClassifier import classifyCorpus, checkPrecision
 
 
 def main():
@@ -25,10 +26,18 @@ def main():
   """
   start = time.perf_counter()
 
-  parseVocabulary()
-  parseClasses()
-  splitCorpus()
+  corpusFile = input("Main corpus file (Default = ../data/ecom-train.csv):") \
+    or "../data/ecom-train.csv"
+  testCorpusFile = input("Test corpus file (Default = ../data/corpus-test.csv):") \
+    or "../data/corpus-test.csv"
+
+  parseVocabulary(inputFile=corpusFile)
+  parseClasses(inputFile=corpusFile)
+  splitCorpus(inputFile=corpusFile)
   estimateProbabilities()
+  corpusToTestFile(inputFile=corpusFile)
+  classifyCorpus(inputFile=testCorpusFile)
+  checkPrecision(originalFile=corpusFile)
 
   end = time.perf_counter()
   print(f"Time spent in main function is: {end - start} seconds")
