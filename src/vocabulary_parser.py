@@ -17,7 +17,7 @@ from src.corpus_parser import extract_descriptions
 from src.preprocessing import preprocess_data
 
 
-def parse_vocabulary(input_file, output_to_file=False):
+def parse_vocabulary(input_file, output_to_file=False, output_file=None):
     """
     Main function to obtain the vocabulary form the given csv file
     """
@@ -30,10 +30,11 @@ def parse_vocabulary(input_file, output_to_file=False):
     vocabulary.append("<unk>")
 
     if output_to_file:
-        # output_file = input(
-        #     "Vocabulary output file (Default = ./data/vocabulario.txt):"
-        # ) or "./data/vocabulario.txt"
-        output_file = "./data/vocabulario.txt"
+        if output_file is None:
+            # output_file = input(
+            #     "Vocabulary output file (Default = ./data/vocabulario.txt):"
+            # ) or "./data/vocabulario.txt"
+            output_file = "./data/vocabulario.txt"
 
         export_to_file(vocabulary, output_file)
 
