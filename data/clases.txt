@@ -1,5 +1,5 @@
 ﻿Numero de clases: 4
-Household
 Books
 Clothing & Accessories
 Electronics
+Household

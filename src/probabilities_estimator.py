@@ -35,7 +35,7 @@ def estimate_probabilities(vocabulary=None,
     probabilities_data = dict()
 
     for class_name in classes:
-        print(f"Estimating {class_name} class probabilities...")
+        print(f"\nEstimating {class_name} class probabilities...")
 
         documents_in_class_corpus, words_in_class_corpus, class_corpus_words = \
             class_corpus_data(class_name, splitted_corpus)
@@ -86,12 +86,13 @@ def estimate_probabilities(vocabulary=None,
         })
 
     if output_to_file:
-        print("Exporting probabilities to files...")
+        print("  Exporting probabilities to files... ", end="")
         for class_name, class_data in probabilities_data.items():
             documents_in_class_corpus, words_in_class_corpus, class_probabilities = \
               class_data.values()
             export_to_file(class_name, documents_in_class_corpus,
                            words_in_class_corpus, class_probabilities)
+        print("Done.")
 
     return probabilities_data
 

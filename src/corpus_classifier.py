@@ -9,21 +9,22 @@ Degree: Computer Science - Advanced Artificial Intelligence
 Description: This program classifies the test corpus into the learned classes
 """
 
-from src.data_getters import raw_descriptions_data, vocabulary_data, classes_data
-from src.data_getters import real_document_classes_data, class_probabilities_data
-from src.data_getters import classified_document_classes_data, test_corpus_data
+from src.data_getters import (vocabulary_data, classes_data,
+                              raw_descriptions_data, real_document_classes_data,
+                              classified_document_classes_data,
+                              class_probabilities_data, test_corpus_data)
 
 
 def classify_corpus(vocabulary=None,
                     classes=None,
                     test_corpus=None,
-                    output_to_file=False):
+                    output_to_file=False,
+                    clasificacion_output_file=None,
+                    resume_output_file=None):
     """
     Function to classify the test corpus documents into the learned classes
     """
-    # studentCode = input("Código de alumno: ")
-
-    print("Classifying documents (this could take some time)...")
+    print("\nClassifying documents (this could take some time)...")
 
     if vocabulary is None:
         vocabulary_size, vocabulary = vocabulary_data()
@@ -83,9 +84,22 @@ def classify_corpus(vocabulary=None,
             {"bestClass": classes[best_class_index][0]})
 
     if output_to_file:
-        print("Exporting to files...")
-        # exportToFile(results, rawDescriptions, studentCode)
-        export_to_file(results, raw_descriptions)
+        if clasificacion_output_file is None:
+            # clasificacion_output_file = "./data/clasificacion-alu0101124896.csv"
+            clasificacion_output_file = "./data/clasificacion-train.csv"
+
+        if resume_output_file is None:
+            # resume_output_file = "./data/resumen-alu0101124896.csv"
+            resume_output_file = "./data/resumen-train.csv"
+
+        # student_code = input("Código de alumno: ")
+
+        print("  Exporting results to files... ", end="")
+        # export_to_file(results, raw_descriptions, clasificacion_output_file,
+        #                resume_output_file, student_code)
+        export_to_file(results, raw_descriptions, clasificacion_output_file,
+                       resume_output_file)
+        print("Done.")
 
     return results
 
@@ -95,7 +109,7 @@ def check_precision(original_file="./data/ecom-train.csv",
     """
     Function to check the precision on the classified descriptions
     """
-    print("Checking precision...")
+    print("\nChecking precision...")
 
     real_classes = real_document_classes_data(original_file)
     results_list = classified_document_classes_data(classified_file)
@@ -108,20 +122,20 @@ def check_precision(original_file="./data/ecom-train.csv",
         False)
     success_rate = num_of_guessed_documents * 100 / len(guessed_classes)
 
-    print(num_of_guessed_documents, "of", len(guessed_classes))
-    print("Success rate:", str(success_rate) + "%")
+    print(f"\n{num_of_guessed_documents} of {len(guessed_classes)}")
+    print(f"Success rate: {str(success_rate)}%")
 
 
-def export_to_file(results, raw_descriptions, student_code=None):
+def export_to_file(results,
+                   raw_descriptions,
+                   clasificacion_output_file,
+                   resume_output_file,
+                   student_code=None):
     """
     Function to export the classified descriptions to a file
     """
-    # classifyOutputFile = "./data/clasificacion-alu0101124896.csv"
-    # resumeOutputFile = "./data/resumen-alu0101124896.csv"
-    classify_output_file = "./data/clasificacion-train.csv"
-    resume_output_file = "./data/resumen-train.csv"
 
-    with open(classify_output_file, "w", encoding='utf-8-sig') as c_file:
+    with open(clasificacion_output_file, "w", encoding='utf-8-sig') as c_file:
         with open(resume_output_file, "w", encoding='utf-8-sig') as r_file:
             if student_code is not None:
                 print(f"Código: {student_code}", file=r_file)

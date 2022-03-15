@@ -39,7 +39,7 @@ def main():
     check_precision(original_file=corpus_file)
 
     end = time.perf_counter()
-    print(f"The time spent in the main function was {end - start} seconds")
+    print(f"\nThe time spent in the main function was {end - start} seconds")
 
 
 if __name__ == "__main__":

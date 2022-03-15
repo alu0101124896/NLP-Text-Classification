@@ -21,15 +21,19 @@ def parse_vocabulary(input_file, output_to_file=False, output_file=None):
     """
     Main function to obtain the vocabulary form the given csv file
     """
-    print("Parsing vocabulary...")
+    print("\nParsing vocabulary...")
 
+    print("  Accessing corpus data file... ", end="")
     corpus_raw_data = get_raw_data(input_file)
+    print("Done.")
+
     descriptions = extract_descriptions(corpus_raw_data)
     vocabulary = extract_vocabulary(descriptions)
 
     vocabulary.append("<unk>")
 
     if output_to_file:
+        print("  Exporting vocabulary to file... ", end="")
         if output_file is None:
             # output_file = input(
             #     "Vocabulary output file (Default = ./data/vocabulario.txt):"
@@ -37,6 +41,7 @@ def parse_vocabulary(input_file, output_to_file=False, output_file=None):
             output_file = "./data/vocabulario.txt"
 
         export_to_file(vocabulary, output_file)
+        print("Done.")
 
     return vocabulary
 

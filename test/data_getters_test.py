@@ -12,9 +12,11 @@ Description: This program tests the correct functionality of the functions at
 
 import unittest
 
-from src.data_getters import get_raw_data, vocabulary_data, classes_data
-from src.data_getters import raw_descriptions_data, real_document_classes_data
-from src.data_getters import classified_document_classes_data
+from src.data_getters import (get_raw_data, vocabulary_data, classes_data,
+                              raw_descriptions_data, real_document_classes_data,
+                              classified_document_classes_data,
+                              class_probabilities_data, class_corpus_data,
+                              test_corpus_data)
 
 
 class DataGettersTestCase(unittest.TestCase):

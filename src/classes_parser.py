@@ -14,25 +14,31 @@ from src.corpus_parser import extract_classes
 from src.data_getters import get_raw_data
 
 
-def parse_classes(input_file, output_to_file=False):
+def parse_classes(input_file, output_to_file=False, output_file=None):
     """
     Main function to obtain the classes form the given csv file
     """
-    print("Parsing classes...")
+    print("\nParsing classes...")
 
-    # corpus_raw_data = get_raw_data(input_file)
-    # classes = list(extract_classes(corpus_raw_data))
-    # classes.sort()
+    print("  Accessing classes data file... ", end="")
+    corpus_raw_data = get_raw_data(input_file)
+    print("Done.")
+
+    classes = list(extract_classes(corpus_raw_data))
+    classes.sort()
 
     # required in the next order for the classification output file format:
-    classes = ["Household", "Books", "Clothing & Accessories", "Electronics"]
+    # classes = ["Household", "Books", "Clothing & Accessories", "Electronics"]
 
     if output_to_file:
-        # output_file = input("Classes output file (Default = ./data/clases.txt):"
-        #                    ) or "./data/clases.txt"
-        output_file = "./data/clases.txt"
+        if output_file is None:
+            # output_file = input("Classes output file (Default = ./data/clases.txt):"
+            #                    ) or "./data/clases.txt"
+            output_file = "./data/clases.txt"
 
+        print("  Exporting classes to file... ", end="")
         export_to_file(classes, output_file)
+        print("Done.")
 
     return classes
 

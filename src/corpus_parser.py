@@ -18,9 +18,11 @@ def split_corpus(input_file, classes=None, output_to_file=False):
     Function to split the given corpus into diferent corpus with the same class
     type documents
     """
-    print("Splitting corpus...")
+    print("\nSplitting corpus...")
 
+    print("  Accessing corpus data file... ", end="")
     corpus_raw_data = get_raw_data(input_file)
+    print("Done.")
 
     if classes is None:
         _, classes = classes_data()
@@ -31,7 +33,7 @@ def split_corpus(input_file, classes=None, output_to_file=False):
     }
 
     if output_to_file:
-        print("Exporting splitted corpuses to files...")
+        print("  Exporting splitted corpuses to files... ", end="")
         for class_name, class_descriptions in splitted_corpus.items():
             # output_file = input(
             #     f"{class_name} class output file (Default = ./data/corpus{class_name[0]}.txt):"
@@ -39,26 +41,33 @@ def split_corpus(input_file, classes=None, output_to_file=False):
             output_file = f"./data/corpus{class_name[0]}.txt"
 
             export_to_file(class_descriptions, output_file)
+        print("Done.")
 
     return splitted_corpus
 
 
-def corpus_to_test(input_file, output_to_file=False):
+def corpus_to_test(input_file, output_to_file=False, output_file=None):
     """
     Function to delete the class column from the corpus file
     """
-    print("Creating test file...")
+    print("\nCreating test file...")
 
+    print("  Accessing corpus data file... ", end="")
     corpus_raw_data = get_raw_data(input_file)
+    print("Done.")
+
     descriptions = extract_descriptions(corpus_raw_data)
 
     if output_to_file:
-        # output_file = input(
-        #     "Test corpus output file (Default = ./data/corpus-test.txt):"
-        # ) or "./data/corpus-test.txt"
-        output_file = "./data/corpus-test.csv"
+        if output_file is None:
+            # output_file = input(
+            #     "Test corpus output file (Default = ./data/corpus-test.txt):"
+            # ) or "./data/corpus-test.txt"
+            output_file = "./data/corpus-test.csv"
 
+        print("  Exporting descriptions to file... ", end="")
         export_to_file(descriptions, output_file)
+        print("Done.")
 
     return descriptions
 
